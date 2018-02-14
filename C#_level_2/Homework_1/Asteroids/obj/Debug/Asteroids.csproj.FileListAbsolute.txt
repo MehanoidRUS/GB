@@ -5,3 +5,10 @@ D:\GeekBrains\homework\GB\C#_level_2\Homework_1\Asteroids\obj\Debug\Asteroids.cs
 D:\GeekBrains\homework\GB\C#_level_2\Homework_1\Asteroids\obj\Debug\Asteroids.csproj.CoreCompileInputs.cache
 D:\GeekBrains\homework\GB\C#_level_2\Homework_1\Asteroids\obj\Debug\Asteroids.exe
 D:\GeekBrains\homework\GB\C#_level_2\Homework_1\Asteroids\obj\Debug\Asteroids.pdb
+D:\GeekBrains\homework\C#_level_2\Homework_1\Asteroids\bin\Debug\Asteroids.exe.config
+D:\GeekBrains\homework\C#_level_2\Homework_1\Asteroids\bin\Debug\Asteroids.exe
+D:\GeekBrains\homework\C#_level_2\Homework_1\Asteroids\bin\Debug\Asteroids.pdb
+D:\GeekBrains\homework\C#_level_2\Homework_1\Asteroids\obj\Debug\Asteroids.csprojResolveAssemblyReference.cache
+D:\GeekBrains\homework\C#_level_2\Homework_1\Asteroids\obj\Debug\Asteroids.csproj.CoreCompileInputs.cache
+D:\GeekBrains\homework\C#_level_2\Homework_1\Asteroids\obj\Debug\Asteroids.exe
+D:\GeekBrains\homework\C#_level_2\Homework_1\Asteroids\obj\Debug\Asteroids.pdb
