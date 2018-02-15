@@ -21,7 +21,7 @@ namespace Asteroids
         public BaseObject()
         {
             this.pos = new Point(Game.Width + 10, Game.Rnd.Next(0, Game.Height));
-            this.dir = new Point(Game.Rnd.Next(2, Game.Rnd.Next(1, 20)));
+            this.dir = new Point(Game.Rnd.Next(2,10), Game.Rnd.Next(1, 20));
         }
 
         public virtual void Draw()

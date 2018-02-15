@@ -39,7 +39,7 @@ namespace Asteroids
 
         public static void Load()
         {
-            BaseObjectArray = new BaseObject[30];
+            BaseObjectArray = new BaseObject[50];
             for (int i = 0; i < BaseObjectArray.Length / 2; i++)
             {
                 BaseObjectArray[i] = new Star(new Size(Rnd.Next(0, 5), Rnd.Next(0, 5)));

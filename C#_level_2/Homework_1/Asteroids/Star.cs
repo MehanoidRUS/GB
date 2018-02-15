@@ -27,7 +27,7 @@ namespace Asteroids
         void ColorizeStars()
         {
             Color color = Color.FromArgb(Game.Rnd.Next(100, 200), Game.Rnd.Next(100, 200), Game.Rnd.Next(100, 200));
-            this.colorStar = new Pen(color, 2);
+            this.colorStar = new Pen(color, 5);
         }
     }
 }
