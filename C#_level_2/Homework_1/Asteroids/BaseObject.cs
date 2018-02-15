@@ -13,11 +13,15 @@ namespace Asteroids
         protected Point dir;
         protected Size size;
 
-        public BaseObject(Point pos,Point dir, Size size)
-        {
-            this.pos = pos;
-            this.dir = dir;
+        public BaseObject(Size size):this()
+        {            
             this.size = size;
+        }
+
+        public BaseObject()
+        {
+            this.pos = new Point(Game.Width + 10, Game.Rnd.Next(0, Game.Height));
+            this.dir = new Point(Game.Rnd.Next(2, Game.Rnd.Next(1, 20)));
         }
 
         public virtual void Draw()

@@ -47,6 +47,8 @@ namespace Asteroids
             }
             for (int i = BaseObjectArray.Length / 2; i < BaseObjectArray.Length; i++)
             {
+                BaseObjectArray[i] = new Asteroid();
+            }
         }
 
         public static void Draw()
