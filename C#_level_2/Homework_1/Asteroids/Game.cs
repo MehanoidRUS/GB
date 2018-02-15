@@ -40,15 +40,13 @@ namespace Asteroids
         public static void Load()
         {
             BaseObjectArray = new BaseObject[30];
-            for (int i = 0; i < BaseObjectArray.Length; i++)
+            for (int i = 0; i < BaseObjectArray.Length / 2; i++)
             {
-                BaseObjectArray[i] = new Star(new Point(Game.Width+10,Rnd.Next(0,Game.Height)), new Point(Rnd.Next(20),0), new Size(Rnd.Next(0,5),Rnd.Next(0,5)));
-                
+                BaseObjectArray[i] = new Star(new Size(Rnd.Next(0, 5), Rnd.Next(0, 5)));
+
             }
-            //for (int i = BaseObjectArray.Length / 2; i < BaseObjectArray.Length; i++)
-            //{
-            //    BaseObjectArray[i] = new BaseObject(new Point(600, i * 20), new Point(15 - i, 15 - i), new Size(20, 20));
-            //}
+            for (int i = BaseObjectArray.Length / 2; i < BaseObjectArray.Length; i++)
+            {
         }
 
         public static void Draw()

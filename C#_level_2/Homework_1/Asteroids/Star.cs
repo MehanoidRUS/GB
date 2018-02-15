@@ -6,16 +6,14 @@ namespace Asteroids
     class Star: BaseObject
     {
         Pen colorStar;
-        public Star(Point pos,Point dir, Size size):base(pos,dir,size)
+        public Star(Size size):base(size)
         {
             ColorizeStars();
         }
         public override void Draw()
         {            
             Game.Buffer.Graphics.DrawLine(colorStar, pos.X,pos.Y,pos.X + size.Width, pos.Y + size.Height);
-            Game.Buffer.Graphics.DrawLine(colorStar, pos.X + size.Width, pos.Y, pos.X, pos.Y + size.Height);
-            //Game.Buffer.Graphics.
-            
+            Game.Buffer.Graphics.DrawLine(colorStar, pos.X + size.Width, pos.Y, pos.X, pos.Y + size.Height);            
         }
         public override void Update()
         {
