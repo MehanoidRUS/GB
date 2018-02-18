@@ -8,8 +8,19 @@ namespace Asteroids
         Pen colorStar;
         public Star(Size size):base(size)
         {
+            speed = Game.Rnd.Next(1, 10);
             ColorizeStars();
         }
+
+        //Метод задает новые параметры объекта
+        public override void ReCreation()
+        {
+            this.pos.X = Game.Width+5;
+            this.pos.Y=Game.Rnd.Next(0, Game.Height);
+            ColorizeStars();
+
+        }
+
         public override void Draw()
         {            
             Game.Buffer.Graphics.DrawLine(colorStar, pos.X,pos.Y,pos.X + size.Width, pos.Y + size.Height);
@@ -17,13 +28,13 @@ namespace Asteroids
         }
         public override void Update()
         {
-            pos.X = pos.X - dir.X;
+            pos.X = pos.X - speed;
             if (pos.X<0)
             {
-                pos.X = Game.Width + size.Width;
+                ReCreation();
             }            
         }
-
+        //Задает различный цвет звезд
         void ColorizeStars()
         {
             Color color = Color.FromArgb(Game.Rnd.Next(100, 200), Game.Rnd.Next(100, 200), Game.Rnd.Next(100, 200));

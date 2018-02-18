@@ -12,8 +12,9 @@ namespace Asteroids
         public static BufferedGraphics Buffer;
         public static int Width { get; set; }
         public static int Height { get; set; }
-        public static BaseObject[] BaseObjectArray;
-        
+        static Star[] stars;
+        static Asteroid[] ListAsteroid;
+        static Bullet bullet;
 
         static Game()
         {
@@ -28,43 +29,58 @@ namespace Asteroids
             Graphics graphics;
             gameContext = BufferedGraphicsManager.Current;
             graphics = form.CreateGraphics();
-            Width = form.Width;
-            Height = form.Height;
             Buffer = gameContext.Allocate(graphics, new Rectangle(0, 0, Width, Height));
             Load();
         }
 
         public static void Load()
         {
-            BaseObjectArray = new BaseObject[50];
-            for (int i = 0; i < BaseObjectArray.Length / 2; i++)
+            stars = new Star[80];
+            ListAsteroid = new Asteroid[10];
+            bullet = new Bullet();
+            for (int i = 0; i < stars.Length; i++)
             {
-                BaseObjectArray[i] = new Star(new Size(Rnd.Next(0, 5), Rnd.Next(0, 5)));
-
+                stars[i] = new Star(new Size(Rnd.Next(0, 5), Rnd.Next(0, 5)));
             }
-            for (int i = BaseObjectArray.Length / 2; i < BaseObjectArray.Length; i++)
+            for (int i = 0; i < ListAsteroid.Length; i++)
             {
-                BaseObjectArray[i] = new Asteroid();
+                ListAsteroid[i] = new Asteroid();
             }
         }
 
         public static void Draw()
         {
             Buffer.Graphics.Clear(Color.Black);
-            foreach (var obj in BaseObjectArray)
+            foreach (Star obj in stars)
             {
                 obj.Draw();
             }
+            foreach (var ast in ListAsteroid)
+            {
+                ast.Draw();
+            }
+            bullet.Draw();        
             Buffer.Render();
         }
 
         public static void Update()
         {
-            foreach (var obj in BaseObjectArray)
+            foreach (Star obj in stars)
             {
                 obj.Update();
             }
+            foreach (Asteroid ast in ListAsteroid)
+            {
+                ast.Update();
+                if(ast.Collision(bullet))
+                {
+                    bullet.ReCreation();
+                    ast.ReCreation();
+                }
+            }
+            bullet.Update();
         }
+
         private static void Timer_Tick(object sender,EventArgs e)
         {
             Draw();
