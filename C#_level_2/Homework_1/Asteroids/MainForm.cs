@@ -8,8 +8,8 @@ namespace Asteroids
      */
     static class MainForm
     {
-        static int defaultWidht=800;
-        static int defaultHeight=600;
+        const int defaultWidht=800;
+        const int defaultHeight=600;
 
         //Создает форму 
         static public Form CreateForm(int widht, int height)

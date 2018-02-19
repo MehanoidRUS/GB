@@ -15,6 +15,7 @@ namespace Asteroids
         static Star[] stars;
         static Asteroid[] ListAsteroid;
         static Bullet bullet;
+        static uint score = 0;
 
         static Game()
         {
@@ -61,7 +62,8 @@ namespace Asteroids
             {
                 ast.Draw();
             }
-            bullet.Draw();        
+            bullet.Draw();
+            Buffer.Graphics.DrawString($"Сбито астеройдов: {score}", new Font("Arial", 16), Brushes.WhiteSmoke, new Point(10, 10));
             Buffer.Render();
         }
 
@@ -74,19 +76,26 @@ namespace Asteroids
             foreach (Asteroid ast in ListAsteroid)
             {
                 ast.Update();
-                if(ast.Collision(bullet))
-                {
-                    bullet.ReCreation();
-                    ast.ReCreation();
-                }
+                Collision(ast, bullet);
             }
             bullet.Update();
+            GC.Collect();
         }
 
         private static void Timer_Tick(object sender,EventArgs e)
         {
             Draw();
             Update();
+        }
+        //Провеярет на столкновение
+        private static void Collision(Asteroid ast,Bullet bullet)
+        {
+            if (ast.Collision(bullet))
+            {
+                bullet.ReCreation();
+                ast.ReCreation();
+                score++;
+            }
         }
     }
 }
