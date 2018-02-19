@@ -64,6 +64,7 @@
     <Compile Include="Game.cs" />
     <Compile Include="asteroid.cs" />
     <Compile Include="ICollision.cs" />
+    <Compile Include="MainForm.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

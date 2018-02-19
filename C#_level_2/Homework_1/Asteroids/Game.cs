@@ -27,6 +27,8 @@ namespace Asteroids
             timer.Start();
             timer.Tick += Timer_Tick;
             Graphics graphics;
+            Width = form.Width;
+            Height = form.Height;
             gameContext = BufferedGraphicsManager.Current;
             graphics = form.CreateGraphics();
             Buffer = gameContext.Allocate(graphics, new Rectangle(0, 0, Width, Height));
@@ -35,7 +37,7 @@ namespace Asteroids
 
         public static void Load()
         {
-            stars = new Star[80];
+            stars = new Star[30];
             ListAsteroid = new Asteroid[10];
             bullet = new Bullet();
             for (int i = 0; i < stars.Length; i++)
