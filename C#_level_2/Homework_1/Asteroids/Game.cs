@@ -13,6 +13,7 @@ namespace Asteroids
         public static int Width { get; set; }
         public static int Height { get; set; }
         static Star[] stars;
+        static Star[] staticStars;
         static Asteroid[] ListAsteroid;
         static Bullet bullet;
         static uint score = 0;
@@ -39,11 +40,16 @@ namespace Asteroids
         public static void Load()
         {
             stars = new Star[30];
+            staticStars = new Star[50];
             ListAsteroid = new Asteroid[10];
             bullet = new Bullet();
+            for (int i = 0; i < staticStars.Length; i++)
+            {
+                staticStars[i] = new Star(new Size(Rnd.Next(1, 6), Rnd.Next(1, 6)), false);
+            }
             for (int i = 0; i < stars.Length; i++)
             {
-                stars[i] = new Star(new Size(Rnd.Next(0, 5), Rnd.Next(0, 5)));
+                stars[i] = new Star(new Size(Rnd.Next(0, 5), Rnd.Next(0, 5)),true);
             }
             for (int i = 0; i < ListAsteroid.Length; i++)
             {
@@ -54,6 +60,10 @@ namespace Asteroids
         public static void Draw()
         {
             Buffer.Graphics.Clear(Color.Black);
+            foreach (Star star in staticStars)
+            {
+                star.Draw();
+            }
             foreach (Star obj in stars)
             {
                 obj.Draw();
@@ -69,6 +79,10 @@ namespace Asteroids
 
         public static void Update()
         {
+            //foreach (Star star in staticStars)
+            //{
+            //    star.Update();
+            //}
             foreach (Star obj in stars)
             {
                 obj.Update();

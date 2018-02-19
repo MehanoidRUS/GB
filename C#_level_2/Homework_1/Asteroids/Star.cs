@@ -6,9 +6,22 @@ namespace Asteroids
     class Star: BaseObject
     {
         Pen colorStar;
-        public Star(Size size):base(size)
+        /// <summary>
+        /// Создает объект Star 
+        /// </summary>
+        /// <param name="size">Размер объекта</param>
+        /// <param name="moving">Должен ли объект перемещаться</param>
+        public Star(Size size,bool moving):base(size)
         {
-            speed = Game.Rnd.Next(1, 10);
+            if (moving)
+            {
+                speed = Game.Rnd.Next(1, 10);
+            }
+            else
+            {
+                speed = 0;
+                pos = new Point(Game.Rnd.Next(1, Game.Width), Game.Rnd.Next(1, Game.Height));
+            }
             ColorizeStars();
         }
 
@@ -35,7 +48,7 @@ namespace Asteroids
             }            
         }
         //Задает различный цвет звезд
-        void ColorizeStars()
+        protected void ColorizeStars()
         {
             Color color = Color.FromArgb(Game.Rnd.Next(100, 200), Game.Rnd.Next(100, 200), Game.Rnd.Next(100, 200));
             this.colorStar = new Pen(color, 5);
