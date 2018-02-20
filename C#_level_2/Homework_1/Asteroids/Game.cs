@@ -17,6 +17,8 @@ namespace Asteroids
         static Asteroid[] ListAsteroid;
         static Bullet bullet;
         static uint score = 0;
+        static Bitmap imageAsteroid;
+        static Bitmap imageBullet;
 
         static Game()
         {
@@ -41,8 +43,11 @@ namespace Asteroids
         {
             stars = new Star[30];
             staticStars = new Star[50];
+            imageAsteroid = new Bitmap(@"Image\asteroid64x64.png");
+            imageBullet = new Bitmap(@"Image\bullet.png");
             ListAsteroid = new Asteroid[10];
-            bullet = new Bullet();
+            bullet = new Bullet(imageBullet);
+            
             for (int i = 0; i < staticStars.Length; i++)
             {
                 staticStars[i] = new Star(new Size(Rnd.Next(1, 6), Rnd.Next(1, 6)), false);
@@ -53,7 +58,7 @@ namespace Asteroids
             }
             for (int i = 0; i < ListAsteroid.Length; i++)
             {
-                ListAsteroid[i] = new Asteroid();
+                ListAsteroid[i] = new Asteroid(imageAsteroid);
             }
         }
 
@@ -79,10 +84,6 @@ namespace Asteroids
 
         public static void Update()
         {
-            //foreach (Star star in staticStars)
-            //{
-            //    star.Update();
-            //}
             foreach (Star obj in stars)
             {
                 obj.Update();
@@ -101,7 +102,11 @@ namespace Asteroids
             Draw();
             Update();
         }
-        //Провеярет на столкновение
+        /// <summary>
+        /// Метод проверки столкновения
+        /// </summary>
+        /// <param name="ast">Объект класса Asteroid</param>
+        /// <param name="bullet">Объект класса Bullet</param>
         private static void Collision(Asteroid ast,Bullet bullet)
         {
             if (ast.Collision(bullet))

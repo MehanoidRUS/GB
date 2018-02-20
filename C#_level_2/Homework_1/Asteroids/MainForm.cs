@@ -11,7 +11,12 @@ namespace Asteroids
         const int defaultWidht=800;
         const int defaultHeight=600;
 
-        //Создает форму 
+        /// <summary>
+        /// Метод создает окно заданной ширины и высоты
+        /// </summary>
+        /// <param name="widht">Ширина окна</param>
+        /// <param name="height">Высота окна</param>
+        /// <returns></returns>
         static public Form CreateForm(int widht, int height)
         {
             Form form = new Form();

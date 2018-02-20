@@ -9,22 +9,25 @@ namespace Asteroids
 {
     class Bullet : BaseObject,ICollision
     {
-        public Bullet() 
+        Bitmap image;
+        public Bullet(Bitmap image) 
         {
-            this.pos = new Point(0, Game.Rnd.Next(0, Game.Height));
-            this.size = new Size(10,5);
+            this.image = image;
+            this.pos = new Point(0, Game.Rnd.Next(0, Game.Height));            
             speed = 10;
         }
 
-        public Rectangle Rect => new Rectangle(pos,size);
-
         public bool Collision(ICollision obj) => obj.Rect.IntersectsWith(this.Rect);
+
+        public Rectangle Rect => new Rectangle(pos, image.Size);
 
         public override void Draw()
         {
-            Game.Buffer.Graphics.FillRectangle(Brushes.OrangeRed,pos.X,pos.Y,size.Width,size.Height);
+            Game.Buffer.Graphics.DrawImage(image, pos.X, pos.Y);
         }
-
+        /// <summary>
+        /// Пересоздает объект в начальной точке
+        /// </summary>
         public override void ReCreation()
         {
             this.pos.X = 0;

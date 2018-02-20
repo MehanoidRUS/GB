@@ -25,8 +25,9 @@ namespace Asteroids
         public abstract void Draw();
 
         public abstract void Update();
-        
-        //Метод задает новые параметры объекта
+        /// <summary>
+        /// Пересоздает объект в начальной точке
+        /// </summary>
         public abstract void ReCreation();
 
     }

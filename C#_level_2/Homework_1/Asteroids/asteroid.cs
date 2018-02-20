@@ -6,10 +6,11 @@ namespace Asteroids
 {
     class Asteroid:BaseObject,ICollision
     {
+        
         Bitmap image;
-        public Asteroid():base()
+        public Asteroid(Bitmap image):base()
         {
-            image = new Bitmap(Properties.Resources.asteroid64x64);            
+            this.image = image;           
             this.dir= new Point(Game.Rnd.Next(3, 10), Game.Rnd.Next(5));
         }
 
@@ -23,6 +24,9 @@ namespace Asteroids
             
         }
 
+        /// <summary>
+        /// Пересоздает объект в начальной точке
+        /// </summary>
         public override void ReCreation()
         {
             this.pos.X = Game.Width + 5;

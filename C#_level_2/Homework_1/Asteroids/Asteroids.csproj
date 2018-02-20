@@ -75,7 +75,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="cdAsteroids.cd" />
-    <None Include="Image\asteroid64x64.png" />
+    <None Include="Image\asteroid64x64.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -96,7 +98,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Image.bmp" />
+    <Content Include="Image\Bullet.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
