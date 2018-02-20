@@ -13,7 +13,7 @@ namespace Asteroids
         public Bullet(Bitmap image) 
         {
             this.image = image;
-            this.pos = new Point(0, Game.Rnd.Next(0, Game.Height));            
+            this.pos = new Point(0, Game.Rnd.Next(0, Game.Height - image.Size.Height));            
             speed = 10;
         }
 
@@ -31,13 +31,13 @@ namespace Asteroids
         public override void ReCreation()
         {
             this.pos.X = 0;
-            this.pos.Y = Game.Rnd.Next(0, Game.Height);
+            this.pos.Y = Game.Rnd.Next(0, Game.Height-image.Size.Height);
         }
 
         public override void Update()
         {
             pos.X = pos.X + speed;
-            if (pos.X>Game.Width-size.Width)
+            if (pos.X>Game.Width-image.Size.Width)
             {
                 ReCreation();
             }
