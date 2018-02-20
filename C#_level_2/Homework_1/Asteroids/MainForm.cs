@@ -6,36 +6,32 @@ namespace Asteroids
     /*Класс создает форму с предварительной проверкой 
      * ее ширины и высоты 
      */
-    static class MainForm
+    class MainForm:Form
     {
         const int defaultWidht=800;
         const int defaultHeight=600;
-
         /// <summary>
-        /// Метод создает окно заданной ширины и высоты
+        /// Конструктор формы, задает размеры создаваемой формы
         /// </summary>
-        /// <param name="widht">Ширина окна</param>
-        /// <param name="height">Высота окна</param>
-        /// <returns></returns>
-        static public Form CreateForm(int widht, int height)
+        /// <param name="widht">Ширина формы</param>
+        /// <param name="height">Высота формы</param>
+        public MainForm(int widht, int height) :base()
         {
-            Form form = new Form();
             try
             {
-                CheckParam(widht,height);
-                form.Width = widht;
-                form.Height = height;
+                CheckParam(widht, height);
+                Width = widht;
+                Height = height;
 
             }
             catch (ArgumentOutOfRangeException)
             {
-                form.Width = defaultWidht;
-                form.Height = defaultHeight;
+                Width = defaultWidht;
+                Height = defaultHeight;
             }
 
-
-            return form;
         }
+
         //Проверка значения Widht и Height
         static void CheckParam(int widht, int height)
         {
