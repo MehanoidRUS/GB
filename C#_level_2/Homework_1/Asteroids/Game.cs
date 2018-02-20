@@ -7,11 +7,10 @@ namespace Asteroids
 {
     static class Game
     {
-        private static BufferedGraphicsContext gameContext;
         public static Random Rnd = new Random();
+        public static int Width { get; private set; }
+        public static int Height { get; private set; }
         public static BufferedGraphics Buffer;
-        public static int Width { get; set; }
-        public static int Height { get; set; }
         static Star[] stars;
         static Star[] staticStars;
         static Asteroid[] ListAsteroid;
@@ -25,17 +24,14 @@ namespace Asteroids
 
         }
 
-        public static void Init(Form form)
+        public static void Init(MainForm form)
         {
             Timer timer = new Timer { Interval = 100 };
             timer.Start();
             timer.Tick += Timer_Tick;
-            Graphics graphics;
             Width = form.Width;
             Height = form.Height;
-            gameContext = BufferedGraphicsManager.Current;
-            graphics = form.CreateGraphics();
-            Buffer = gameContext.Allocate(graphics, new Rectangle(0, 0, Width, Height));
+            Buffer = form.Buffer;
             Load();
         }
 
@@ -103,7 +99,7 @@ namespace Asteroids
             Update();
         }
         /// <summary>
-        /// Метод проверки столкновения
+        /// Метод проверки на столкновение
         /// </summary>
         /// <param name="ast">Объект класса Asteroid</param>
         /// <param name="bullet">Объект класса Bullet</param>
