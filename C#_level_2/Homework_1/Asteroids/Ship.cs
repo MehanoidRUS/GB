@@ -17,8 +17,15 @@ namespace Asteroids
         public Ship()
         {
             this.pos = new Point(0,Game.Height/2);
+            this.size = image.Size;
             speed = 1;
         }
+
+        /// <summary>
+        /// Свойство, возвращает координаты корабля
+        /// </summary>
+        public Point ShipPosition => pos;
+
         /// <summary>
         /// Метод возвращает колличество жизней
         /// </summary>
@@ -41,7 +48,7 @@ namespace Asteroids
             pos.Y += speed;
         }
         /// <summary>
-        /// Перемещение объекта внизS
+        /// Перемещение объекта вниз
         /// </summary>
         public void Down()
         {

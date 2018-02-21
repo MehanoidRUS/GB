@@ -64,13 +64,16 @@
     <Compile Include="Game.cs" />
     <Compile Include="asteroid.cs" />
     <Compile Include="ICollision.cs" />
-    <Compile Include="MainForm.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Ship.cs" />
     <Compile Include="Star.cs" />
   </ItemGroup>
   <ItemGroup>

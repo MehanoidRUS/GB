@@ -10,11 +10,12 @@ namespace Asteroids
         Bitmap image;
         public Asteroid(Bitmap image):base()
         {
-            this.image = image;           
+            this.image = image;
+            this.size = image.Size;
             this.dir= new Point(Game.Rnd.Next(3, 10), Game.Rnd.Next(5));
         }
 
-        public Rectangle Rect => new Rectangle(pos,image.Size);
+        public Rectangle Rect => new Rectangle(pos,SizeObject);
 
         public bool Collision(ICollision obj) => obj.Rect.IntersectsWith(this.Rect);
 

@@ -10,16 +10,17 @@ namespace Asteroids
     class Bullet : BaseObject,ICollision
     {
         Bitmap image;
-        public Bullet(Bitmap image) 
+        public Bullet(Bitmap image,Point point) 
         {
             this.image = image;
-            this.pos = new Point(0, Game.Rnd.Next(0, Game.Height));            
+            this.size = image.Size;
+            this.pos = point;            
             speed = 10;
         }
 
         public bool Collision(ICollision obj) => obj.Rect.IntersectsWith(this.Rect);
 
-        public Rectangle Rect => new Rectangle(pos, image.Size);
+        public Rectangle Rect => new Rectangle(pos, SizeObject);
 
         public override void Draw()
         {

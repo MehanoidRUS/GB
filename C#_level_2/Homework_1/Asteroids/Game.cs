@@ -11,8 +11,13 @@ namespace Asteroids
         public static int Width { get; private set; }
         public static int Height { get; private set; }
         public static BufferedGraphics Buffer;
+        //Константа общее колличество звезд
+        const int amountAllStars = 80;
+        //Константа, колличество не подвижных звезд
+        const int amountStaticStars = 50;
+        static Ship ship = new Ship();
         static Star[] stars;
-        static Star[] staticStars;
+        //static Star[] staticStars;
         static Asteroid[] ListAsteroid;
         static Bullet bullet;
         static uint score = 0;
@@ -24,34 +29,43 @@ namespace Asteroids
 
         }
 
-        public static void Init(MainForm form)
+        public static void Init(Form form)
         {
             Timer timer = new Timer { Interval = 100 };
             timer.Start();
             timer.Tick += Timer_Tick;
             Width = form.Width;
-            Height = form.Height;
-            Buffer = form.Buffer;
+            //Height = form.Height;
+            //Buffer = form.Buffer;
+            //form.KeyDown += Form_KeyDown;
             Load();
+        }
+
+        private static void Form_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode==Keys.ControlKey) bullet = new Bullet(imageBullet,ship.ShipPosition+ship.SizeObject);
+            
         }
 
         public static void Load()
         {
-            stars = new Star[30];
-            staticStars = new Star[50];
+            bool isMove = false;
+            stars = new Star[amountAllStars];
             imageAsteroid = new Bitmap(@"Image\asteroid64x64.png");
-            imageBullet = new Bitmap(@"Image\bullet.png");
+            imageBullet = new Bitmap(@"Image\bullet_ship.png");
             ListAsteroid = new Asteroid[10];
-            bullet = new Bullet(imageBullet);
             
-            for (int i = 0; i < staticStars.Length; i++)
+
+            //Цикл создает подвижные и неподвижные звезды
+            for (int i = 0; i < amountAllStars; i++)
             {
-                staticStars[i] = new Star(new Size(Rnd.Next(1, 6), Rnd.Next(1, 6)), false);
+                if (i > amountStaticStars)
+                {
+                    isMove = true; 
+                }
+                stars[i] = new Star(new Size(Rnd.Next(0, 5), Rnd.Next(0, 5)), isMove); 
             }
-            for (int i = 0; i < stars.Length; i++)
-            {
-                stars[i] = new Star(new Size(Rnd.Next(0, 5), Rnd.Next(0, 5)),true);
-            }
+            //Цикл создает астеройды
             for (int i = 0; i < ListAsteroid.Length; i++)
             {
                 ListAsteroid[i] = new Asteroid(imageAsteroid);
@@ -61,13 +75,13 @@ namespace Asteroids
         public static void Draw()
         {
             Buffer.Graphics.Clear(Color.Black);
-            foreach (Star star in staticStars)
+            //foreach (Star star in staticStars)
+            //{
+            //    star.Draw();
+            //}
+            foreach (Star star in stars)
             {
                 star.Draw();
-            }
-            foreach (Star obj in stars)
-            {
-                obj.Draw();
             }
             foreach (var ast in ListAsteroid)
             {
