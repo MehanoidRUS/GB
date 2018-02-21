@@ -19,8 +19,8 @@ namespace Asteroids
         /// </summary>
         public MainForm():base()
         {
-            //Width = defaultWidht;
-            //Height = defaultHeight;
+            Width = defaultWidht;
+            Height = defaultHeight;
             Graphics graphics;
             graphics = CreateGraphics();
             gameContext = BufferedGraphicsManager.Current;

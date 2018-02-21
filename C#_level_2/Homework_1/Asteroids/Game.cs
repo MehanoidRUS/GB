@@ -15,7 +15,7 @@ namespace Asteroids
         const int amountAllStars = 80;
         //Константа, колличество не подвижных звезд
         const int amountStaticStars = 50;
-        static Ship ship = new Ship();
+        //static Ship ship = new Ship();
         static Star[] stars;
         //static Star[] staticStars;
         static Asteroid[] ListAsteroid;
@@ -29,21 +29,21 @@ namespace Asteroids
 
         }
 
-        public static void Init(Form form)
+        public static void Init(MainForm form)
         {
             Timer timer = new Timer { Interval = 100 };
             timer.Start();
             timer.Tick += Timer_Tick;
             Width = form.Width;
-            //Height = form.Height;
-            //Buffer = form.Buffer;
-            //form.KeyDown += Form_KeyDown;
+            Height = form.Height;
+            Buffer = form.Buffer;
+            form.KeyDown += Form_KeyDown;
             Load();
         }
 
         private static void Form_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode==Keys.ControlKey) bullet = new Bullet(imageBullet,ship.ShipPosition+ship.SizeObject);
+           // if(e.KeyCode==Keys.ControlKey) bullet = new Bullet(imageBullet,ship.ShipPosition+ship.SizeObject);
             
         }
 
@@ -53,6 +53,7 @@ namespace Asteroids
             stars = new Star[amountAllStars];
             imageAsteroid = new Bitmap(@"Image\asteroid64x64.png");
             imageBullet = new Bitmap(@"Image\bullet_ship.png");
+            bullet = new Bullet(imageBullet, new Point(400,0));
             ListAsteroid = new Asteroid[10];
             
 

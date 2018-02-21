@@ -10,6 +10,9 @@ namespace Asteroids
         protected Point dir;
         protected int speed = 1;
         protected Size size;
+        /// <summary>
+        /// Свойство возвращает размер объекта
+        /// </summary>
         public Size SizeObject => size;
         protected BaseObject(Size size):this()
         {            
