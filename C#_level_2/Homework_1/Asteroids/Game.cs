@@ -15,7 +15,6 @@ namespace Asteroids
         const int amountAllStars = 80;
         //Константа, колличество не подвижных звезд
         const int amountStaticStars = 50;
-        //static Ship ship = new Ship();
         static Star[] stars;
         //static Star[] staticStars;
         static Asteroid[] ListAsteroid;
@@ -23,7 +22,7 @@ namespace Asteroids
         static uint score = 0;
         static Bitmap imageAsteroid;
         static Bitmap imageBullet;
-
+        static Ship ship = new Ship(new Point(400, 300));
         static Game()
         {
 
@@ -37,6 +36,7 @@ namespace Asteroids
             Width = form.Width;
             Height = form.Height;
             Buffer = form.Buffer;
+            
             form.KeyDown += Form_KeyDown;
             Load();
         }
@@ -49,6 +49,7 @@ namespace Asteroids
 
         public static void Load()
         {
+            
             bool isMove = false;
             stars = new Star[amountAllStars];
             imageAsteroid = new Bitmap(@"Image\asteroid64x64.png");
@@ -88,6 +89,7 @@ namespace Asteroids
             {
                 ast.Draw();
             }
+            ship.Draw();
             bullet.Draw();
             Buffer.Graphics.DrawString($"Сбито астеройдов: {score}", new Font("Arial", 16), Brushes.WhiteSmoke, new Point(10, 10));
             Buffer.Render();

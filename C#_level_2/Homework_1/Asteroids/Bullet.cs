@@ -9,7 +9,7 @@ namespace Asteroids
 {
     class Bullet : BaseObject,ICollision
     {
-        Bitmap image;
+        
         public Bullet(Bitmap image,Point point) 
         {
             this.image = image;

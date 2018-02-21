@@ -19,7 +19,6 @@ namespace Asteroids
             }
             else
             {
-                speed = 0;
                 pos = new Point(Game.Rnd.Next(1, Game.Width), Game.Rnd.Next(1, Game.Height));
             }
             ColorizeStars();

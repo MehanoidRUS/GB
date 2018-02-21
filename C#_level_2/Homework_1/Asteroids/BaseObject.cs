@@ -6,9 +6,10 @@ namespace Asteroids
 {
     abstract class BaseObject
     {
+        protected Bitmap image;
         protected Point pos;
         protected Point dir;
-        protected int speed = 1;
+        protected int speed = 0;
         protected Size size;
         /// <summary>
         /// Свойство возвращает размер объекта
