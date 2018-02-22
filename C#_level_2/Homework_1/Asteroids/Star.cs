@@ -25,26 +25,19 @@ namespace Asteroids
         }
 
         //Метод задает новые параметры объекта
-        public override void ReCreation()
-        {
-            this.pos.X = Game.Width+5;
-            this.pos.Y=Game.Rnd.Next(0, Game.Height);
-            ColorizeStars();
-
-        }
 
         public override void Draw()
         {            
             Game.Buffer.Graphics.DrawLine(colorStar, pos.X,pos.Y,pos.X + size.Width, pos.Y + size.Height);
             Game.Buffer.Graphics.DrawLine(colorStar, pos.X + size.Width, pos.Y, pos.X, pos.Y + size.Height);            
         }
-        public override void Update()
+
+        /// <summary>
+        /// Обновление состояния объекта
+        /// </summary>
+        public override void Update<Star>(ref Star obj)
         {
             pos.X = pos.X - speed;
-            if (pos.X<0)
-            {
-                ReCreation();
-            }            
         }
         //Задает различный цвет звезд
         protected void ColorizeStars()

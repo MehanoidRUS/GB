@@ -6,15 +6,13 @@ namespace Asteroids
 {
     class Asteroid:BaseObject,ICollision
     {
-        
-        Bitmap image;
-        public Asteroid(Bitmap image):base()
+        public Asteroid(Bitmap image)
         {
             this.image = image;
             this.size = image.Size;
             this.dir= new Point(Game.Rnd.Next(3, 10), Game.Rnd.Next(5));
         }
-
+        
         public Rectangle Rect => new Rectangle(pos,SizeObject);
 
         public bool Collision(ICollision obj) => obj.Rect.IntersectsWith(this.Rect);
@@ -28,28 +26,17 @@ namespace Asteroids
         /// <summary>
         /// Пересоздает объект в начальной точке
         /// </summary>
-        public override void ReCreation()
-        {
-            this.pos.X = Game.Width + 5;
-            this.pos.Y = Game.Rnd.Next(0, Game.Height);
-        }
 
-        public override void Update()
+        public override void Update<Asteroid>(ref Asteroid obj)
         {
-            pos.X = pos.X - dir.X;
+            
+            this.pos.X = pos.X - dir.X;
             pos.Y = pos.Y + dir.Y;
-            if (pos.X < 0)
+            if (pos.X<0)
             {
-                ReCreation();
+                Destroy<Asteroid>(ref obj);
             }
-            if (pos.Y < 0)
-            {
-                pos.Y = Game.Height;
-            }
-            if (pos.Y > Game.Height)
-            {
-                pos.Y = 0;
-            }
+
         }
     }
 }

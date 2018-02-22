@@ -29,19 +29,11 @@ namespace Asteroids
         /// <summary>
         /// Пересоздает объект в начальной точке
         /// </summary>
-        public override void ReCreation()
-        {
-            this.pos.X = 0;
-            this.pos.Y = Game.Rnd.Next(0, Game.Height);
-        }
 
-        public override void Update()
+        public override void Update<Bullet>(ref Bullet obj)
         {
             pos.X = pos.X + speed;
-            if (pos.X>Game.Width-size.Width)
-            {
-                ReCreation();
-            }
+
         }
     }
 }
