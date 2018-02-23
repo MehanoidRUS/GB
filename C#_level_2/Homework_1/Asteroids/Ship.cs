@@ -5,6 +5,7 @@ namespace Asteroids
 {
     class Ship : BaseObject, ICollision
     {
+        //Количество жизней
         private int live = 3;
 
         public Ship()
@@ -15,12 +16,15 @@ namespace Asteroids
             this.speed = 10;
         }
 
-
-
         /// <summary>
         /// Возвращает координаты корабля
         /// </summary>
         public Point ShipPosition => pos;
+
+        /// <summary>
+        /// Возвращает размер объекта
+        /// </summary>
+        public Size Size => size;
 
         /// <summary>
         /// Метод возвращает колличество жизней
@@ -31,6 +35,7 @@ namespace Asteroids
         /// Метод обрабатывающий полученный урон
         /// </summary>
         public void Damage() => live--;
+
         /// <summary>
         /// Метод восстановления здоровтя
         /// </summary>
@@ -39,39 +44,43 @@ namespace Asteroids
             if (live < 3) live++;
         }
 
-        public Rectangle Rect => new Rectangle(pos, SizeObject);
+        /// <summary>
+        /// Реализация интерфейса ICollision
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public bool Collision(ICollision obj) => obj.Rect.IntersectsWith(this.Rect);
+        public Rectangle Rect => new Rectangle(pos, size);
 
-        
 
         /// <summary>
         /// Метод движения вверх
         /// </summary>
         public void Up()
         {
-            if (pos.Y > 0)
-            {
-                pos.Y -= speed;
-            }
+         pos.Y -= speed;
         }
 
         /// <summary>
         /// Метод движения вниз
         /// </summary>
         public void Down()
-        {
-            if (pos.Y < (Game.Height-size.Height))
-            {
-                pos.Y += speed;
-            }
+        { 
+            pos.Y += speed;
         }
 
+        /// <summary>
+        /// Перегрузка метода рисования
+        /// </summary>
         public override void Draw()
         {
             Game.Buffer.Graphics.DrawImage(image, this.pos);
         }
 
-        public static event Message MessageDie;
+        /// <summary>
+        /// Происходит при live=0
+        /// </summary>
+        public static event Action MessageDie;
 
 
         /// <summary>
@@ -79,7 +88,6 @@ namespace Asteroids
         /// </summary>
         public void Die()
         {
-            
             MessageDie?.Invoke();
         }
 
@@ -87,7 +95,15 @@ namespace Asteroids
         /// Обновление состояния объекта
         /// </summary>
         public override void Update<Ship>(ref Ship obj)
-        {            
+        {
+            if (pos.Y<0)
+            {
+                pos.Y = Game.Height - size.Height;
+            }
+            if (pos.Y >(Game.Height - size.Height))
+            {
+                pos.Y = 0;
+            }
         }
     }
 }

@@ -11,9 +11,9 @@ namespace Asteroids
         //Значение ширины и высоты формы по-умолчанию
         const int defaultWidht=800;
         const int defaultHeight=600;
-
         private  BufferedGraphicsContext gameContext;
         public  BufferedGraphics Buffer;
+
         /// <summary>
         /// Конструктор формы по-умолчанию
         /// </summary>

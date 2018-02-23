@@ -12,16 +12,22 @@ namespace Asteroids
         {
             this.image= new Bitmap(@"Image\live.png");
             this.size = image.Size;
-            this.pos = new Point(Game.Width, 400);
+            this.pos = new Point(Game.Width, Game.Rnd.Next(1,Game.Height-size.Height));
             //this.pos = new Point(400,400);
             this.speed =10;
         }
 
-        public Rectangle Rect => new Rectangle(pos,SizeObject);
-
+        /// <summary>
+        /// Реализация интерфейса ICollision
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public bool Collision(ICollision obj) => obj.Rect.IntersectsWith(this.Rect);
-        
+        public Rectangle Rect => new Rectangle(pos, size);
 
+        /// <summary>
+        /// Перегрузка метода рисования
+        /// </summary>
         public override void Draw()
         {
             Game.Buffer.Graphics.DrawImage(image, pos.X, pos.Y);
@@ -33,7 +39,10 @@ namespace Asteroids
         public override void Update<HeartForLife>(ref HeartForLife obj)
         {
             pos.X -= speed;
- 
+            if (pos.X<0)
+            {
+                Destroy(ref obj);
+            }
         }
     }
 }

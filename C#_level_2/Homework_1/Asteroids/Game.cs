@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using System.Drawing;
 using System.IO;
-
+using System.Media;
 
 namespace Asteroids
 {
@@ -16,36 +16,54 @@ namespace Asteroids
         const int amountAllStars = 80;
         //Константа, колличество не подвижных звезд
         const int amountStaticStars = 50;
-        //Через сколько запускать аптечку, завязана на таймер
-        static int launchFrequencyBonus;
+        //Основной таймер
         static Timer timer = new Timer { Interval = 100 };
+        //Таймер запуска бонуса(интервал в диапазоне 10..20сек)
+        static Timer timerBonus=new Timer { Interval = Game.Rnd.Next(BonusTimeMin,BonusTimeMax)};
+        //Интервал времени, через которой запуститься бонус в мс.
+        static int BonusTimeMin = 10000;
+        static int BonusTimeMax = 20000;
         static Star[] stars;
         //static Star[] staticStars;
         static Asteroid[] ListAsteroid;
-        static Bullet bullet;
+        static Bullet[] bullets;
         static uint score = 0;
         static Bitmap imageAsteroid;
         static Bitmap imageBullet;
         static Ship ship;
         static HeartForLife heart;
 
+        /// <summary>
+        /// Описываем методы для журналирования
+        /// </summary>
+        /// <param name="Message"></param>
         delegate void Logging(string Message);
 
+        /// <summary>
+        /// Событие запускающие логирование
+        /// </summary>
         static event Logging Log;
+
+        /// <summary>
+        /// Метод журналирования в консоль
+        /// </summary>
+        /// <param name="msg">Текст сообщения</param>
         static void JournalConsole(string msg)
         {
             Console.WriteLine($"{msg}");
         }
 
+        /// <summary>
+        /// Метод журналирования в файл
+        /// </summary>
+        /// <param name="msg">Текст сообщения</param>
         static void JournalFile(string msg)
         {
-            Console.WriteLine($@"{Directory.GetCurrentDirectory()}");
             string FilePath = $@"{Directory.GetCurrentDirectory()}\Log";
             if (!File.Exists(FilePath))
             {
                 DirectoryInfo info;
                 info=Directory.CreateDirectory($@"{Directory.GetCurrentDirectory()}\Log");
-                Console.WriteLine($@"{info.FullName}");
             }
             using (StreamWriter inFile=new StreamWriter(@"Log\gamelog.txt",true))
             {
@@ -58,11 +76,15 @@ namespace Asteroids
 
         }
 
+        /// <summary>
+        /// Инициализация
+        /// </summary>
+        /// <param name="form">Главная форма приложения</param>
         public static void Init(MainForm form)
         {
             timer.Start();
             timer.Tick += Timer_Tick;
-            timer.Tick += StartBonus;
+            timerBonus.Tick += TimerBonus_Tick;
             Log += JournalConsole;
             Log += JournalFile;
             Width = form.Width;
@@ -74,9 +96,23 @@ namespace Asteroids
             Load();
         }
 
+        /// <summary>
+        /// Обработка нажатия клавиш
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private static void Form_KeyDown(object sender, KeyEventArgs e)
         {
-           if(e.KeyCode==Keys.ControlKey) bullet = new Bullet(imageBullet,ship.ShipPosition+ship.SizeObject);
+            if (e.KeyCode == Keys.ControlKey)
+            {
+                for (int i = 0; i < bullets.Length; i++)
+                {
+                    if (bullets[i] == null)
+                    {
+                        bullets[i] = new Bullet(imageBullet, ship.ShipPosition + ship.Size);
+                    }
+                }
+            }
             if (e.KeyCode == Keys.Up) ship.Up();
             if (e.KeyCode == Keys.Down) ship.Down();      
         }
@@ -86,10 +122,9 @@ namespace Asteroids
             ship = new Ship();
             bool isMove = false;
             stars = new Star[amountAllStars];
+            bullets = new Bullet[5];
             imageAsteroid = new Bitmap(@"Image\asteroid64x64.png");
             imageBullet = new Bitmap(@"Image\bullet_ship.png");
-           // launchFrequencyBonus = Game.Rnd.Next(100, 1000);
-            launchFrequencyBonus = 50;
             ListAsteroid = new Asteroid[10];
             
             //Цикл создает подвижные и неподвижные звезды
@@ -121,10 +156,11 @@ namespace Asteroids
                 ast?.Draw();
             }
             ship?.Draw();
-            bullet?.Draw();
+            foreach (var bullet in bullets)
+            {
+                bullet?.Draw();
+            }            
             heart?.Draw();
-
-
             Buffer.Graphics.DrawString($"Сбито астеройдов: {score}", new Font("Arial", 16), Brushes.WhiteSmoke, new Point(10, 10));
             Buffer.Graphics.DrawString($"Осталось жизней: {ship.Live}", new Font("Arial", 16), Brushes.WhiteSmoke, new Point(10, 30));
             Buffer.Render();
@@ -147,37 +183,37 @@ namespace Asteroids
                     stars[i] = null;
                 }
             }
-            bullet?.Update(ref bullet);
+            for (int i=0;i< bullets.Length;++i)
+            {
+                if (bullets[i]!=null)
+                {
+                    bullets[i].Update(ref bullets[i]);
+                }                
+            }
             for (int i = 0; i < ListAsteroid.Length; i++)
             {
 
                 if (ListAsteroid[i] == null)
                 {
-                    Log($"ListAsteroid[{i}]");
                     ListAsteroid[i] = new Asteroid(imageAsteroid);
-                    Log($"ListAsteroid[{i}].X={ListAsteroid[i].Position.X}");
                 }
                 ListAsteroid[i]?.Update(ref ListAsteroid[i]);
-                if (bullet!=null && ListAsteroid[i]!=null && bullet.Collision(ListAsteroid[i]))
+                if (BulletHits(ref ListAsteroid[i]))
                 {
-                    Log("Астеройд уничтожен");
-                    System.Media.SystemSounds.Hand.Play();
-                    Console.WriteLine("BOOM!!!");
-                    score++;
-                    ListAsteroid[i] = null;
-                    bullet = null;
                     continue;
                 }
                 if (ListAsteroid[i]!=null && ship.Collision(ListAsteroid[i]))
                 {
                     Log("Корабль подбит");
+                    timerBonus.Start();
+                    Log($"Аптечка полетит сейчас {timerBonus.Interval}");
                     ListAsteroid[i] = null;
                     ship.Damage();
                 }
 
             }
-
-            System.Media.SystemSounds.Asterisk.Play();
+            SystemSounds.Asterisk.Play();
+            ship.Update(ref ship);
             if (ship.Live == 0) ship?.Die();
             if (heart != null)
             {
@@ -189,42 +225,77 @@ namespace Asteroids
                     heart = null;
                 }
             }
-
             GC.Collect();
         }
 
+        /// <summary>
+        /// Проверка на попадание в астеройд
+        /// </summary>
+        /// <param name="asteroid">объект класса Asteroid</param>
+        /// <returns></returns>
+        static bool BulletHits(ref Asteroid asteroid)
+        {
+            for (int i=0;i<bullets.Length;++i)
+            {
+                if (bullets[i] != null && asteroid != null)
+                {
+                    if (bullets[i].Collision(asteroid))
+                    {
+                        Log("Астеройд уничтожен");
+                        SystemSounds.Hand.Play();
+                        score++;
+                        asteroid = null;
+                        bullets[i] = null;
+                        return true;
+                    }
+                }
+            }            
+            return false;
+        }
+
+        /// <summary>
+        /// Метод обработки события timer.Tick
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private static void Timer_Tick(object sender,EventArgs e)
         {
             Update();
-            Draw();
-            
+            Draw();           
+        }
+        /// <summary>
+        /// Метод обработки события timerBonus.Tick
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private static void TimerBonus_Tick(object sender,EventArgs e)
+        {
+            StartBonus();
         }
 
+        /// <summary>
+        /// Метод обработки при пройгреше
+        /// </summary>
         public static void GameOver()
         {           
-            string text = "Game Over";            
+            string text = "Game Over";
+            timer.Stop();
             Buffer.Graphics.DrawString(text, new Font("Arial", 16), Brushes.WhiteSmoke, new Point(Width/2 - text.Length, Height / 2));
             Buffer.Render();
-            timer.Stop();
             Log($"{text} Колличество сбитых астеройдов = {score}");
         }
         
-        private static void StartBonus(object sender, EventArgs e)
+        /// <summary>
+        /// Метод запуска бонуса, по таймеру
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private static void StartBonus()
         {
-
-            if (launchFrequencyBonus <= 0 && heart == null)
-            {
-                //Console.WriteLine("Create Heart");
-                //heart = new HeartForLife();
-                launchFrequencyBonus = 1;
-                
-            }
-                if (heart == null)
-            {
-                //Console.WriteLine($"{launchFrequencyBonus}");
-                launchFrequencyBonus--;
-                //Console.WriteLine($"Position x={ListAsteroid[1].Position.X}");
-            }
+            timerBonus.Stop();
+            heart = new HeartForLife();
+            Log($"Аптечка создана. {heart.Position}");
+            timerBonus.Interval = Game.Rnd.Next(BonusTimeMin, BonusTimeMax);
         }
     }
 }

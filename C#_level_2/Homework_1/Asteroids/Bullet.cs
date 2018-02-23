@@ -18,22 +18,32 @@ namespace Asteroids
             speed = 10;
         }
 
+        /// <summary>
+        /// Реализация интерфейса ICollision
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public bool Collision(ICollision obj) => obj.Rect.IntersectsWith(this.Rect);
+        public Rectangle Rect => new Rectangle(pos, size);
 
-        public Rectangle Rect => new Rectangle(pos, SizeObject);
-
+        /// <summary>
+        /// Перегрузка метода рисования
+        /// </summary>
         public override void Draw()
         {
             Game.Buffer.Graphics.DrawImage(image, pos.X, pos.Y);
         }
-        /// <summary>
-        /// Пересоздает объект в начальной точке
-        /// </summary>
 
+        /// <summary>
+        /// Обновление состояния объекта
+        /// </summary>
         public override void Update<Bullet>(ref Bullet obj)
         {
             pos.X = pos.X + speed;
-
+            if(pos.X>Game.Width)
+            {
+                Destroy(ref obj);
+            }
         }
     }
 }

@@ -24,8 +24,10 @@ namespace Asteroids
             ColorizeStars();
         }
 
-        //Метод задает новые параметры объекта
 
+        /// <summary>
+        /// Перегрузка метода рисования
+        /// </summary>
         public override void Draw()
         {            
             Game.Buffer.Graphics.DrawLine(colorStar, pos.X,pos.Y,pos.X + size.Width, pos.Y + size.Height);
@@ -39,8 +41,10 @@ namespace Asteroids
         {
             pos.X = pos.X - speed;
         }
-        //Задает различный цвет звезд
-        protected void ColorizeStars()
+        /// <summary>
+        /// Задает цвет объекта при создание
+        /// </summary>
+        void ColorizeStars()
         {
             Color color = Color.FromArgb(Game.Rnd.Next(100, 200), Game.Rnd.Next(100, 200), Game.Rnd.Next(100, 200));
             this.colorStar = new Pen(color, 5);
