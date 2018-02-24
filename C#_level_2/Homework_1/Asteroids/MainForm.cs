@@ -11,9 +11,9 @@ namespace Asteroids
         //Значение ширины и высоты формы по-умолчанию
         const int defaultWidht=800;
         const int defaultHeight=600;
-
         private  BufferedGraphicsContext gameContext;
         public  BufferedGraphics Buffer;
+
         /// <summary>
         /// Конструктор формы по-умолчанию
         /// </summary>
@@ -62,6 +62,19 @@ namespace Asteroids
             {
                 throw new ArgumentOutOfRangeException();                
             }
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // MainForm
+            // 
+            this.ClientSize = new System.Drawing.Size(292, 273);
+            this.Enabled = false;
+            this.Name = "MainForm";
+            this.ResumeLayout(false);
+
         }
     }
     

@@ -7,7 +7,7 @@ namespace Asteroids
     {
         static void Main()
         {
-            MainForm form = new MainForm(8000, -600);
+            MainForm form = new MainForm(800,600);
             Game.Init(form);
             form.Show();
             Game.Draw();

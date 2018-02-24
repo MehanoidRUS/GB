@@ -19,36 +19,32 @@ namespace Asteroids
             }
             else
             {
-                speed = 0;
                 pos = new Point(Game.Rnd.Next(1, Game.Width), Game.Rnd.Next(1, Game.Height));
             }
             ColorizeStars();
         }
 
-        //Метод задает новые параметры объекта
-        public override void ReCreation()
-        {
-            this.pos.X = Game.Width+5;
-            this.pos.Y=Game.Rnd.Next(0, Game.Height);
-            ColorizeStars();
 
-        }
-
+        /// <summary>
+        /// Перегрузка метода рисования
+        /// </summary>
         public override void Draw()
         {            
             Game.Buffer.Graphics.DrawLine(colorStar, pos.X,pos.Y,pos.X + size.Width, pos.Y + size.Height);
             Game.Buffer.Graphics.DrawLine(colorStar, pos.X + size.Width, pos.Y, pos.X, pos.Y + size.Height);            
         }
-        public override void Update()
+
+        /// <summary>
+        /// Обновление состояния объекта
+        /// </summary>
+        public override void Update<Star>(ref Star obj)
         {
             pos.X = pos.X - speed;
-            if (pos.X<0)
-            {
-                ReCreation();
-            }            
         }
-        //Задает различный цвет звезд
-        protected void ColorizeStars()
+        /// <summary>
+        /// Задает цвет объекта при создание
+        /// </summary>
+        void ColorizeStars()
         {
             Color color = Color.FromArgb(Game.Rnd.Next(100, 200), Game.Rnd.Next(100, 200), Game.Rnd.Next(100, 200));
             this.colorStar = new Pen(color, 5);

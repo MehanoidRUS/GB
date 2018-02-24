@@ -6,18 +6,24 @@ namespace Asteroids
 {
     class Asteroid:BaseObject,ICollision
     {
-        
-        Bitmap image;
-        public Asteroid(Bitmap image):base()
+        public Asteroid(Bitmap image)
         {
-            this.image = image;           
+            this.image = image;
+            this.size = image.Size;
             this.dir= new Point(Game.Rnd.Next(3, 10), Game.Rnd.Next(5));
         }
 
-        public Rectangle Rect => new Rectangle(pos,image.Size);
-
+        /// <summary>
+        /// Реализация интерфейса ICollision
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public bool Collision(ICollision obj) => obj.Rect.IntersectsWith(this.Rect);
+        public Rectangle Rect => new Rectangle(pos, size);
 
+        /// <summary>
+        /// Перегрузка метода рисования
+        /// </summary>
         public override void Draw()
         {
             Game.Buffer.Graphics.DrawImage(image, pos.X, pos.Y);
@@ -25,30 +31,17 @@ namespace Asteroids
         }
 
         /// <summary>
-        /// Пересоздает объект в начальной точке
+        /// Обновление параметров объекта
         /// </summary>
-        public override void ReCreation()
+        public override void Update<Asteroid>(ref Asteroid obj)
         {
-            this.pos.X = Game.Width + 5;
-            this.pos.Y = Game.Rnd.Next(0, Game.Height);
-        }
-
-        public override void Update()
-        {
-            pos.X = pos.X - dir.X;
+            this.pos.X = pos.X - dir.X;
             pos.Y = pos.Y + dir.Y;
-            if (pos.X < 0)
+            if (pos.X<0)
             {
-                ReCreation();
+                Destroy<Asteroid>(ref obj);
             }
-            if (pos.Y < 0)
-            {
-                pos.Y = Game.Height;
-            }
-            if (pos.Y > Game.Height)
-            {
-                pos.Y = 0;
-            }
+
         }
     }
 }
