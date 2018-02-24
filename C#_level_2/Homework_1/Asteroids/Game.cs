@@ -18,11 +18,12 @@ namespace Asteroids
         const int amountStaticStars = 50;
         //Основной таймер
         static Timer timer = new Timer { Interval = 100 };
-        //Таймер запуска бонуса(интервал в диапазоне 10..20сек)
-        static Timer timerBonus=new Timer { Interval = Game.Rnd.Next(BonusTimeMin,BonusTimeMax)};
         //Интервал времени, через которой запуститься бонус в мс.
         static int BonusTimeMin = 10000;
         static int BonusTimeMax = 20000;
+        //Таймер запуска бонуса(интервал в диапазоне 10..20сек)
+        static Timer timerBonus=new Timer { Interval = Game.Rnd.Next(BonusTimeMin,BonusTimeMax)};
+
         static Star[] stars;
         //static Star[] staticStars;
         static Asteroid[] ListAsteroid;
@@ -110,6 +111,7 @@ namespace Asteroids
                     if (bullets[i] == null)
                     {
                         bullets[i] = new Bullet(imageBullet, ship.ShipPosition + ship.Size);
+                        break;
                     }
                 }
             }
@@ -159,7 +161,7 @@ namespace Asteroids
             foreach (var bullet in bullets)
             {
                 bullet?.Draw();
-            }            
+            }
             heart?.Draw();
             Buffer.Graphics.DrawString($"Сбито астеройдов: {score}", new Font("Arial", 16), Brushes.WhiteSmoke, new Point(10, 10));
             Buffer.Graphics.DrawString($"Осталось жизней: {ship.Live}", new Font("Arial", 16), Brushes.WhiteSmoke, new Point(10, 30));
@@ -183,13 +185,7 @@ namespace Asteroids
                     stars[i] = null;
                 }
             }
-            for (int i=0;i< bullets.Length;++i)
-            {
-                if (bullets[i]!=null)
-                {
-                    bullets[i].Update(ref bullets[i]);
-                }                
-            }
+
             for (int i = 0; i < ListAsteroid.Length; i++)
             {
 
@@ -206,24 +202,30 @@ namespace Asteroids
                 {
                     Log("Корабль подбит");
                     timerBonus.Start();
-                    Log($"Аптечка полетит сейчас {timerBonus.Interval}");
                     ListAsteroid[i] = null;
                     ship.Damage();
                 }
 
             }
+            for (int i = 0; i < bullets.Length; ++i)
+            {
+                if (bullets[i] != null)
+                {
+                    bullets[i].Update(ref bullets[i]);
+                }
+            }
             SystemSounds.Asterisk.Play();
             ship.Update(ref ship);
-            if (ship.Live == 0) ship?.Die();
+            if (ship.Live <= 0) ship?.Die();
             if (heart != null)
             {
-                heart.Update(ref heart);
                 if (heart.Collision(ship))
                 {
                     Log("Колличество жизней увеличено");
                     ship.Heal();
                     heart = null;
                 }
+                heart?.Update(ref heart);
             }
             GC.Collect();
         }
@@ -260,8 +262,9 @@ namespace Asteroids
         /// <param name="e"></param>
         private static void Timer_Tick(object sender,EventArgs e)
         {
+            Draw();
             Update();
-            Draw();           
+                      
         }
         /// <summary>
         /// Метод обработки события timerBonus.Tick
@@ -280,7 +283,7 @@ namespace Asteroids
         {           
             string text = "Game Over";
             timer.Stop();
-            Buffer.Graphics.DrawString(text, new Font("Arial", 16), Brushes.WhiteSmoke, new Point(Width/2 - text.Length, Height / 2));
+            Buffer.Graphics.DrawString(text, new Font(FontFamily.GenericSansSerif,60,FontStyle.Underline), Brushes.WhiteSmoke,400,200);
             Buffer.Render();
             Log($"{text} Колличество сбитых астеройдов = {score}");
         }
@@ -294,7 +297,7 @@ namespace Asteroids
         {
             timerBonus.Stop();
             heart = new HeartForLife();
-            Log($"Аптечка создана. {heart.Position}");
+            Log($"Аптечка создана.");
             timerBonus.Interval = Game.Rnd.Next(BonusTimeMin, BonusTimeMax);
         }
     }

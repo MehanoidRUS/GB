@@ -15,7 +15,7 @@ namespace Asteroids
             this.image = image;
             this.size = image.Size;
             this.pos = point;            
-            speed = 10;
+            speed = 15;
         }
 
         /// <summary>

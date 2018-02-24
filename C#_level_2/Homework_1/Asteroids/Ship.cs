@@ -29,7 +29,7 @@ namespace Asteroids
         /// <summary>
         /// Метод возвращает колличество жизней
         /// </summary>
-        public int Live => live;
+        public int Live => live>0?live:0;
 
         /// <summary>
         /// Метод обрабатывающий полученный урон
@@ -50,7 +50,7 @@ namespace Asteroids
         /// <param name="obj"></param>
         /// <returns></returns>
         public bool Collision(ICollision obj) => obj.Rect.IntersectsWith(this.Rect);
-        public Rectangle Rect => new Rectangle(pos, size);
+        public Rectangle Rect => new Rectangle(pos, Size);
 
 
         /// <summary>

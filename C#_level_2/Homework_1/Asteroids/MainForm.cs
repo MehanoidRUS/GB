@@ -63,6 +63,19 @@ namespace Asteroids
                 throw new ArgumentOutOfRangeException();                
             }
         }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // MainForm
+            // 
+            this.ClientSize = new System.Drawing.Size(292, 273);
+            this.Enabled = false;
+            this.Name = "MainForm";
+            this.ResumeLayout(false);
+
+        }
     }
     
 }
