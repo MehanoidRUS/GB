@@ -13,14 +13,9 @@ namespace Asteroids
         public Bullet(Bitmap image,Point point) 
         {
             this.image = image;
-<<<<<<< HEAD
-            this.pos = new Point(0, Game.Rnd.Next(0, Game.Height - image.Size.Height));            
-            speed = 10;
-=======
             this.size = image.Size;
             this.pos = point;            
             speed = 15;
->>>>>>> Future/edit
         }
 
         /// <summary>
@@ -42,23 +37,10 @@ namespace Asteroids
         /// <summary>
         /// Обновление состояния объекта
         /// </summary>
-<<<<<<< HEAD
-        public override void ReCreation()
-        {
-            this.pos.X = 0;
-            this.pos.Y = Game.Rnd.Next(0, Game.Height-image.Size.Height);
-        }
-
-        public override void Update()
-        {
-            pos.X = pos.X + speed;
-            if (pos.X>Game.Width-image.Size.Width)
-=======
         public override void Update<Bullet>(ref Bullet obj)
         {
             pos.X = pos.X + speed;
             if(pos.X>Game.Width)
->>>>>>> Future/edit
             {
                 Destroy(ref obj);
             }
