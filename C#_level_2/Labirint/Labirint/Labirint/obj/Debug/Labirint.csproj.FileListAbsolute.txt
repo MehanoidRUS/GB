@@ -1,0 +1,7 @@
+D:\GeekBrains\homework\C#_level_2\Labirint\Labirint\Labirint\bin\Debug\Labirint.exe.config
+D:\GeekBrains\homework\C#_level_2\Labirint\Labirint\Labirint\bin\Debug\Labirint.exe
+D:\GeekBrains\homework\C#_level_2\Labirint\Labirint\Labirint\bin\Debug\Labirint.pdb
+D:\GeekBrains\homework\C#_level_2\Labirint\Labirint\Labirint\obj\Debug\Labirint.csprojResolveAssemblyReference.cache
+D:\GeekBrains\homework\C#_level_2\Labirint\Labirint\Labirint\obj\Debug\Labirint.csproj.CoreCompileInputs.cache
+D:\GeekBrains\homework\C#_level_2\Labirint\Labirint\Labirint\obj\Debug\Labirint.exe
+D:\GeekBrains\homework\C#_level_2\Labirint\Labirint\Labirint\obj\Debug\Labirint.pdb
