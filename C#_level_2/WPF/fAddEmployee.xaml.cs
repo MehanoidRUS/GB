@@ -15,22 +15,13 @@ using System.Windows.Shapes;
 namespace Homework
 {
     /// <summary>
-    /// Логика взаимодействия для AddDepartment.xaml
+    /// Логика взаимодействия для fAddEmployee.xaml
     /// </summary>
-    public partial class AddDepartment : Window
+    public partial class fAddEmployee : Window
     {
-        public List<int> TEMP=new List<int>();
-        public AddDepartment()
+        public fAddEmployee()
         {
             InitializeComponent();
-            
-            
-        }
-
-        private void btnOk_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindow.departments.Add(new Department(tboxNewNameDepartment.Text));
-            this.Close();
         }
     }
 }

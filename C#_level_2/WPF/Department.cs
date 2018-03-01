@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Homework
 {
-    class Department
+    public class Department
     {
         string name;
         public ObservableCollection<Employee> Employees;
-
+        
+        
         /// <summary>
         /// Создает объект департамент с указанным названием
         /// </summary>

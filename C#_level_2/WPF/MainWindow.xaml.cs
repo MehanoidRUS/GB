@@ -21,8 +21,9 @@ namespace Homework
     /// </summary>
     public partial class MainWindow : Window
     {
-        ObservableCollection<Department> departments;
+        public static ObservableCollection<Department> departments;
         
+
 
         public MainWindow()
         {
@@ -34,10 +35,13 @@ namespace Homework
                 new Department("Отдел ИТО")
             };
 
+
             DefaultValue();
             
         }
-
+        /// <summary>
+        /// Заполняет ListBoxы и выставляет начальные значения
+        /// </summary>
         void DefaultValue()
         {
             lbDepartment.ItemsSource = departments;
@@ -61,20 +65,21 @@ namespace Homework
         /// <param name="e"></param>
         private void btnAddDepartment_Click(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(txtbAddDepartment.Text))
-                departments.Add(new Department(txtbAddDepartment.Text));
+            //if (!string.IsNullOrWhiteSpace(txtbAddDepartment.Text))
+            //    departments.Add(new Department(txtbAddDepartment.Text));
 
-            foreach (var item in departments)
-            {
-                Console.WriteLine(item);
-            }
-
-            //AddDepartment addDepartment = new AddDepartment
+            //foreach (var item in departments)
             //{
-            //    Owner = this
-            //};
-            //addDepartment.Show();
-            
+            //    Console.WriteLine(item);
+            //}
+
+            AddDepartment addDepartment = new AddDepartment()
+            {
+                
+                Owner = this
+            };
+            addDepartment.Show();
+
         }
 
         private void lbDepartment_SelectionChanged(object sender, SelectionChangedEventArgs e)

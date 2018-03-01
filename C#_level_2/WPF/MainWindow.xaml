@@ -21,20 +21,25 @@
                  Grid.Row="0"
                  Text="Департамент" 
                  VerticalAlignment="Bottom"
-                 HorizontalAlignment="Center" 
-                 Height="20" Margin="34,0"
+                 HorizontalAlignment="Center"  
                  />
+        <TextBlock x:Name="tbEmployee" 
+                   Text="Сотрудники" 
+                   Grid.Column="1" 
+                   HorizontalAlignment="Center"  
+                   TextWrapping="Wrap" 
+                   VerticalAlignment="Bottom"
+                   />
         <ListBox x:Name="lbDepartment" 
                  Grid.Column="0"
                  Grid.Row="1"
                  Grid.RowSpan="1" Background="White" SelectionChanged="lbDepartment_SelectionChanged" 
                  />
-        <Button x:Name="btnAddDepartment" Content="Добавить департамент" HorizontalAlignment="Left" Margin="25,50,0,0" Grid.Row="2" VerticalAlignment="Top" Width="137" Click="btnAddDepartment_Click"/>
-        <TextBox x:Name="txtbAddDepartment" HorizontalAlignment="Left" Height="23" Margin="25,22,0,0" Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="195"/>
-        <TextBlock x:Name="tbEmployee" Text="Сотрудники" Grid.Column="1" HorizontalAlignment="Center"  TextWrapping="Wrap" VerticalAlignment="Bottom"/>
+        <Button x:Name="btnAddDepartment" Content="Добавить департамент" HorizontalAlignment="Left" Margin="25,5,0,0" Grid.Row="2" VerticalAlignment="Top" Width="137" Click="btnAddDepartment_Click"/>
+
         <ListBox x:Name="lbEmployee" Grid.Column="1" Grid.Row="1"/>
-        <ComboBox x:Name="cmbbxDepartments" Grid.Column="1" HorizontalAlignment="Left" Margin="22,49,0,0" Grid.Row="2" VerticalAlignment="Top" Width="205" />
-        <Button x:Name="btnMoveEmployee" Content="Переместить в..." Grid.Column="1" HorizontalAlignment="Left" Margin="32,22,0,0" Grid.Row="2" VerticalAlignment="Top" Width="140" Click="btnMoveEmployee_Click"/>
+        <ComboBox x:Name="cmbbxDepartments" Grid.Column="1" HorizontalAlignment="Left" Margin="10,77,0,0" Grid.Row="2" VerticalAlignment="Top" Width="205" RenderTransformOrigin="0.495,2.333" />
+        <Button x:Name="btnMoveEmployee" Content="Переместить в..." Grid.Column="1" HorizontalAlignment="Left" Margin="19,52,0,0" Grid.Row="2" VerticalAlignment="Top" Width="140" Click="btnMoveEmployee_Click"/>
 
 
     </Grid>
